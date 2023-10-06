@@ -1,3 +1,2 @@
-# Json Q
-
+# JSON Q
 jq like thing
