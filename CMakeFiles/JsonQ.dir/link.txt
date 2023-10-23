@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/JsonQ.dir/src/lexer.c.o CMakeFiles/JsonQ.dir/src/main.c.o CMakeFiles/JsonQ.dir/src/parser.c.o CMakeFiles/JsonQ.dir/src/token.c.o -o JsonQ 
