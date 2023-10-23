@@ -13,10 +13,11 @@ int main(int argc, char *argv[]) {
     struct Lexer* lexer = lexerCreate(bufferResult);
 
     int len = strlen(bufferResult);
+    printf("len: %d\n", len);
 
     // Sanity check. 
-    /* for (int i = 0; i < len; i++) { */
-    /*     struct Token* tok = lexerNextToken(lexer); */
-    /*     printf("%c", (char) tok->literal); */
-    /* } */
+    for (int i = 0; i < len; i++) {
+        struct Token* tok = lexerNextToken(lexer);
+        // printf("[%c]", (char) tok->literal);
+    }
 }

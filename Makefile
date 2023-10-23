@@ -8,6 +8,5 @@ cmake_init: build_dir
 build: cmake_init
 	cd build && make
 
-
 clean: 
 	rm -r build

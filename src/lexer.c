@@ -25,6 +25,7 @@ struct Lexer* lexerCreate(char* input) {
 }
 
 struct Token* lexerNextToken(struct Lexer* lexer) {
+    // printf("%s\n", "lexerNextToken");
     struct Token* tok;
     _lexer_skip_whitespace(lexer);
 
@@ -48,12 +49,18 @@ struct Token* lexerNextToken(struct Lexer* lexer) {
             printf("%c\n", lexer->ch);
     }
 
+    /* if (lexer->position >= lexer->input_length || lexer->read_position >=lexer->input_length) { */
+    /*     return NULL; */
+    /* } */
+
     _lexer_read_char(lexer);
     return tok;
 }
 
 
 static void _lexer_read_char(struct Lexer* lexer) {
+    // printf("%s\n", "_lexer_read_char");
+
     if (lexer->read_position >= lexer->input_length) {
         lexer->ch = 0;
     } else {
@@ -65,7 +72,7 @@ static void _lexer_read_char(struct Lexer* lexer) {
 }
 
 static void _lexer_skip_whitespace(struct Lexer* lexer) {
-    while(lexer->ch == ' ' || lexer->ch == '\t' && lexer->ch == '\n') {
+    while(lexer->ch == ' ' || lexer->ch == '\t' || lexer->ch == '\n' || lexer->ch == '\r') {
         _lexer_read_char(lexer);
     }
 }
