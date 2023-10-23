@@ -21,5 +21,10 @@ int main(int argc, char *argv[]) {
   /* printf("\n"); */
   /*  */
   /* return 0; */
-    createToken();
+    struct Token* tkn = createToken();
+
+    tkn->Type = "Test";
+    tkn->Literal = "Something";
+
+    printf("%s\n", tkn->Literal);
 }
