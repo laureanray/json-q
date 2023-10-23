@@ -1,7 +1,8 @@
 #include "token.h"
 
-struct Token* createToken() {
-    struct Token *ptr;
-    ptr = (struct Token*) malloc(sizeof(struct Token));
-    return ptr;
+struct Token* newToken(TokenType tt, char ch) {
+    struct Token *t = malloc(sizeof(struct Token));
+    t->literal = ch;
+    t->type = tt;
+    return t;
 }

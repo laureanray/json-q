@@ -1,5 +1,6 @@
 #include "file.h"
 #include "lexer.h"
+#include "token.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,5 +12,10 @@ int main(int argc, char *argv[]) {
     
     struct Lexer* lexer = lexerCreate(bufferResult);
 
-    printf("%c\n", lexer->ch);
+    int len = strlen(bufferResult);
+
+    for (int i = 0; i < len; i++) {
+        struct Token* tok = lexerNextToken(lexer);
+        printf("%c", (char) tok->literal);
+    }
 }

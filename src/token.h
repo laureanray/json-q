@@ -2,10 +2,13 @@
 #define LBRACE "{"
 #define RBRACE "}"
 
+typedef enum {
+    LPAREN
+} TokenType;
+
 struct Token {
-    char* Type;
-    char* Literal;
+  TokenType type;
+  char literal;
 };
 
-
-struct Token* createToken();
+struct Token* newToken(TokenType tt, char ch);
