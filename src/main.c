@@ -1,11 +1,10 @@
 #include "file.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(int argc, char *argv[]) {
-    printf("%s", "loading file...");
-    char* buffer; 
-    int loadFileResult = loadFile("input.json", buffer);
-    printf("%s\n", buffer);
-    /* free(buffer); */
+    char* bufferResult = loadFile("../input.json");
+    printf("%zu\n", strlen(bufferResult));
+    printf("%s\n", bufferResult);
 }

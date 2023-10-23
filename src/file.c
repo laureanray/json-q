@@ -3,13 +3,16 @@
 #include <unistd.h>
 #include <string.h>
 
-int loadFile(char* filename, char* buffer) {
+char* loadFile(char* filename) {
+    char* buffer;
+    printf("Trying to load %s\n", filename);
+
     FILE *file = fopen(filename, "rb");
     long file_size;
 
     if (file == NULL) {
         perror("Error opening file");
-        return 1;
+        return NULL;
     }
 
     fseek(file, 0, SEEK_END);
@@ -21,7 +24,7 @@ int loadFile(char* filename, char* buffer) {
     if (buffer == NULL) {
         perror("Error allocating memory");
         fclose(file);
-        return 1;
+        return NULL;
     }
 
     size_t bytes_read = fread(buffer, 1, file_size, file);
@@ -32,10 +35,12 @@ int loadFile(char* filename, char* buffer) {
         perror("Error reading file");
         // De-allocate memory
         free(buffer);
-        return 1;
+        return NULL;
     }
+
+    // printf("%s\n", buffer);
 
     // fclose(file);
 
-    return 0;
+    return buffer;
 }

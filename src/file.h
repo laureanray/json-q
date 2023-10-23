@@ -1,1 +1,1 @@
-int loadFile(char* filename, char* buffer);
+char* loadFile(char* filename);
