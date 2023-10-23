@@ -1,11 +1,13 @@
 #include "lexer.h"
 #include "token.h"
+#include <stdatomic.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 static void _lexer_read_char(struct Lexer* lexer);
 static void _lexer_skip_whitespace(struct Lexer* lexer);
+static char _lexer_peek_char(struct Lexer* lexer);
 
 struct Lexer* lexerCreate(char* input) {
     int len = sizeof(struct Lexer);
@@ -28,7 +30,20 @@ struct Token* lexerNextToken(struct Lexer* lexer) {
 
     switch(lexer->ch) {
         case '{':
-            tok = newToken(LPAREN, lexer->ch);
+            tok = newToken(LBRACE, lexer->ch);
+        case '}':
+            tok = newToken(RBRACE, lexer->ch);
+        case '[':
+            tok = newToken(LBRACKET, lexer->ch);
+        case ']':
+            tok = newToken(RBRACKET, lexer->ch);
+        case ':':
+            tok = newToken(COLON, lexer->ch);
+        case ',':
+            tok = newToken(COMMA, lexer->ch);
+        /* case 't': */
+        /*      x  */
+            tok = newToken(TRUE, lexer->ch);
         default:
             printf("%c\n", lexer->ch);
     }
@@ -54,3 +69,12 @@ static void _lexer_skip_whitespace(struct Lexer* lexer) {
         _lexer_read_char(lexer);
     }
 }
+
+static char _lexer_peek_char(struct Lexer* lexer) {
+    if(lexer->read_position >= lexer->input_length) {
+        return 0;
+    } else {
+        return lexer->input[lexer->read_position];
+    }
+}
+

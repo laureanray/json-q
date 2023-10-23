@@ -1,9 +1,17 @@
 #include <stdlib.h>
-#define LBRACE "{"
-#define RBRACE "}"
 
 typedef enum {
-    LPAREN
+    LBRACKET,
+    RBRACKET,
+    LBRACE,
+    RBRACE,
+    COLON,
+    COMMA,
+    STRING,
+    NUMBER,
+    TRUE,
+    FALSE,
+    NIL, // NULL
 } TokenType;
 
 struct Token {

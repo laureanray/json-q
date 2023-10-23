@@ -14,8 +14,9 @@ int main(int argc, char *argv[]) {
 
     int len = strlen(bufferResult);
 
-    for (int i = 0; i < len; i++) {
-        struct Token* tok = lexerNextToken(lexer);
-        printf("%c", (char) tok->literal);
-    }
+    // Sanity check. 
+    /* for (int i = 0; i < len; i++) { */
+    /*     struct Token* tok = lexerNextToken(lexer); */
+    /*     printf("%c", (char) tok->literal); */
+    /* } */
 }
