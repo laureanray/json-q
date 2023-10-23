@@ -35,7 +35,7 @@ int loadFile(char* filename, char* buffer) {
         return 1;
     }
 
-    fclose(file);
+    // fclose(file);
 
     return 0;
 }
