@@ -1,3 +1,0 @@
-/home/lr/Projects/json-q/CMakeFiles/JsonQ.dir
-/home/lr/Projects/json-q/CMakeFiles/edit_cache.dir
-/home/lr/Projects/json-q/CMakeFiles/rebuild_cache.dir
