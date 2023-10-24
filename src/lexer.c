@@ -1,5 +1,6 @@
 #include "lexer.h"
 #include "token.h"
+#include "util.h"
 #include <stdatomic.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,10 +9,10 @@
 static void _lexer_read_char(struct Lexer* lexer);
 static void _lexer_skip_whitespace(struct Lexer* lexer);
 static char _lexer_peek_char(struct Lexer* lexer);
+static char* _lexer_read_string(struct Lexer* lexer);
 
 struct Lexer* lexerCreate(char* input) {
-    int len = sizeof(struct Lexer);
-    struct Lexer* lexer = malloc(len);
+    int len = sizeof(struct Lexer); struct Lexer* lexer = malloc(len);
     memset(lexer, 0, len);
 
     lexer->input = input;
@@ -25,7 +26,6 @@ struct Lexer* lexerCreate(char* input) {
 }
 
 struct Token* lexerNextToken(struct Lexer* lexer) {
-    // printf("%s\n", "lexerNextToken");
     struct Token* tok;
     _lexer_skip_whitespace(lexer);
 
@@ -42,9 +42,13 @@ struct Token* lexerNextToken(struct Lexer* lexer) {
             tok = newToken(COLON, lexer->ch);
         case ',':
             tok = newToken(COMMA, lexer->ch);
+        case '"':
+            tok->type = STRING;
+            tok->literal = _lexer_read_string(lexer);
+            
         /* case 't': */
         /*      x  */
-            tok = newToken(TRUE, lexer->ch);
+            //tok = newToken(TRUE, lexer->ch);
         default:
             printf("%c\n", lexer->ch);
     }
@@ -85,3 +89,17 @@ static char _lexer_peek_char(struct Lexer* lexer) {
     }
 }
 
+
+static char* _lexer_read_string(struct Lexer* lexer) {
+    size_t position = lexer->position + 1;
+
+    for(;;){
+        _lexer_read_char(lexer);
+
+        if (lexer->ch == '"' || lexer->ch == 0) {
+            break;
+        }
+    }
+    
+    return get_substring(lexer->input, position, lexer->position);
+}

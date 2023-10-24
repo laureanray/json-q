@@ -16,7 +16,7 @@ typedef enum {
 
 struct Token {
   TokenType type;
-  char literal;
+  char* literal;
 };
 
 struct Token* newToken(TokenType tt, char ch);
