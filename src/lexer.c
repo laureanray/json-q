@@ -29,33 +29,37 @@ struct Token* lexerNextToken(struct Lexer* lexer) {
     struct Token* tok;
     _lexer_skip_whitespace(lexer);
 
+    printf("%c", lexer->ch);
+
     switch(lexer->ch) {
         case '{':
             tok = newToken(LBRACE, lexer->ch);
+            break;
         case '}':
             tok = newToken(RBRACE, lexer->ch);
+            break;
         case '[':
             tok = newToken(LBRACKET, lexer->ch);
+            break;
         case ']':
             tok = newToken(RBRACKET, lexer->ch);
+            break;
         case ':':
             tok = newToken(COLON, lexer->ch);
+            break;
         case ',':
             tok = newToken(COMMA, lexer->ch);
-        case '"':
-            tok->type = STRING;
-            tok->literal = _lexer_read_string(lexer);
-            
-        /* case 't': */
-        /*      x  */
-            //tok = newToken(TRUE, lexer->ch);
+            break;
+        // case '"':
+        //     tok->type = STRING;
+        //     tok->literal = _lexer_read_string(lexer);
+        case '\0':
+            printf("%s\n", "End of file!!");
+            tok = newToken(END_OF_FILE, lexer->ch);
+            break;
         default:
-            printf("%c\n", lexer->ch);
+            tok = newToken(ILLEGAL, lexer->ch);
     }
-
-    /* if (lexer->position >= lexer->input_length || lexer->read_position >=lexer->input_length) { */
-    /*     return NULL; */
-    /* } */
 
     _lexer_read_char(lexer);
     return tok;
@@ -64,10 +68,13 @@ struct Token* lexerNextToken(struct Lexer* lexer) {
 
 static void _lexer_read_char(struct Lexer* lexer) {
     // printf("%s\n", "_lexer_read_char");
+    printf("%zu %zu\n", lexer->read_position, lexer->input_length);
 
-    if (lexer->read_position >= lexer->input_length) {
-        lexer->ch = 0;
+    if (lexer->read_position > lexer->input_length) {
+        printf("%s\n", "setting to null terminator");
+        lexer->ch = '\0';
     } else {
+        // printf("%c", lexer->input[lexer->read_position]);
         lexer->ch = lexer->input[lexer->read_position];
     }
 
@@ -91,6 +98,7 @@ static char _lexer_peek_char(struct Lexer* lexer) {
 
 
 static char* _lexer_read_string(struct Lexer* lexer) {
+    printf("%s\n", "_lexer_read_string");
     size_t position = lexer->position + 1;
 
     for(;;){

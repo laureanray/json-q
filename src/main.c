@@ -6,11 +6,16 @@
 
 int main(int argc, char *argv[]) {
     char* bufferResult = loadFile("../input.json");
-    printf("%zu\n", strlen(bufferResult));
-    printf("%s\n", bufferResult);
-    
     struct Lexer* lexer = lexerCreate(bufferResult);
-    struct Parser* parser = newParser(lexer);
+    // struct Parser* parser = newParser(lexer);
+
+    while(lexer->ch != '\0') {
+        struct Token* tok = lexerNextToken(lexer);
+        if (tok && tok->literal != NULL) {
+            printf("%s\n", tok->literal);
+            free(tok);
+        }
+    }
 }
 
 

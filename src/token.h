@@ -12,6 +12,8 @@ typedef enum {
     TRUE,
     FALSE,
     NIL, // NULL
+    ILLEGAL,
+    END_OF_FILE,
 } TokenType;
 
 struct Token {
