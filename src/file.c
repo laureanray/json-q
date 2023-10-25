@@ -5,7 +5,7 @@
 
 char* loadFile(char* filename) {
     char* buffer;
-    printf("Trying to load %s\n", filename);
+    // printf("Trying to load %s\n", filename);
 
     FILE *file = fopen(filename, "rb");
     long file_size;
@@ -29,7 +29,7 @@ char* loadFile(char* filename) {
 
     size_t bytes_read = fread(buffer, 1, file_size, file);
 
-    printf("bytes read: %zu \n", bytes_read);
+    // printf("bytes read: %zu \n", bytes_read);
 
     if (bytes_read != file_size) {
         perror("Error reading file");
