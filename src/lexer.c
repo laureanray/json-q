@@ -29,7 +29,7 @@ struct Token* lexerNextToken(struct Lexer* lexer) {
     struct Token* tok;
     _lexer_skip_whitespace(lexer);
 
-    printf("%c", lexer->ch);
+    // printf("%c", lexer->ch);
 
     switch(lexer->ch) {
         case '{':
@@ -54,7 +54,7 @@ struct Token* lexerNextToken(struct Lexer* lexer) {
         //     tok->type = STRING;
         //     tok->literal = _lexer_read_string(lexer);
         case '\0':
-            printf("%s\n", "End of file!!");
+            // printf("%s\n", "End of file!!");
             tok = newToken(END_OF_FILE, lexer->ch);
             break;
         default:
@@ -67,11 +67,9 @@ struct Token* lexerNextToken(struct Lexer* lexer) {
 
 
 static void _lexer_read_char(struct Lexer* lexer) {
-    // printf("%s\n", "_lexer_read_char");
-    printf("%zu %zu\n", lexer->read_position, lexer->input_length);
-
+    // printf("%s\n", "_lexer_read_char"); printf("%zu %zu\n", lexer->read_position, lexer->input_length);
     if (lexer->read_position > lexer->input_length) {
-        printf("%s\n", "setting to null terminator");
+        // printf("%s\n", "setting to null terminator");
         lexer->ch = '\0';
     } else {
         // printf("%c", lexer->input[lexer->read_position]);
