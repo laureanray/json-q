@@ -111,5 +111,5 @@ static char* _lexer_read_string(struct Lexer* lexer) {
         }
     }
     printf("after: %zu %zu\n", position, lexer->position);
-    return get_substring(lexer->input, position, lexer->position);
+    return get_substring(lexer->input, position, lexer->position - position);
 }
