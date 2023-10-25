@@ -19,7 +19,6 @@ char* get_substring(char* source, size_t start, size_t length) {
 
 char* char_to_string(char c) {
     char* str = (char*) malloc(2 * sizeof(char));
-
     if (str == NULL) {
         perror("Failre to allocate memory for char_to_string");
         exit(EXIT_FAILURE);
