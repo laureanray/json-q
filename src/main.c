@@ -12,3 +12,6 @@ int main(int argc, char *argv[]) {
     struct Lexer* lexer = lexerCreate(bufferResult);
     struct Parser* parser = newParser(lexer);
 }
+
+
+
