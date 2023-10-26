@@ -10,3 +10,7 @@ build: cmake_init
 
 clean: 
 	rm -r build
+
+
+debug:
+	cd build && gf2 ./jsonq

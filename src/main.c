@@ -12,9 +12,7 @@ int main(int argc, char *argv[]) {
     while(lexer->ch != '\0') {
         struct Token* tok = lexerNextToken(lexer);
         if (tok && tok->literal != NULL) {
-            // printf("%s", tok->literal);
-            free(tok);
+            printf("%s", tok->literal);
         }
     }
-
 }
