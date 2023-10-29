@@ -9,10 +9,18 @@ int main(int argc, char *argv[]) {
     struct Lexer* lexer = lexerCreate(bufferResult);
     struct Parser* parser = newParser(lexer);
 
-    while(lexer->ch != '\0') {
-        struct Token* tok = lexerNextToken(lexer);
-        if (tok && tok->literal != NULL) {
-            printf("%s", tok->literal);
-        }
+    parser_next_token(parser);
+    printf("%s", parser->peek_token->literal);
+    while(parser->peek_token->type != END_OF_FILE) {
+        parser_next_token(parser);
+        printf("%s", parser->peek_token->literal);
     }
+
+    /* while(parser->peek_token->type != END_OF_FILE) { */
+    /*     parser_next_token(parser); */
+    /*  */
+    /*     if (parser->curr_token && parser->curr_token->literal != NULL) { */
+    /*         printf("%s", parser->curr_token->literal); */
+    /*     } */
+    /* } */
 }

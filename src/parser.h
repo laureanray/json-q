@@ -46,3 +46,5 @@ struct JsonValue {
 
 struct Parser* newParser(struct Lexer *lexer);
 struct JsonObject* parseJson(struct Parser *parser);
+
+void parser_next_token(struct Parser* parser);
