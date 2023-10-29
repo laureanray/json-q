@@ -10,3 +10,8 @@ struct Lexer {
 
 struct Lexer* lexerCreate(char *input);
 struct Token* lexerNextToken(struct Lexer* lexer);
+
+static void _lexer_read_char(struct Lexer* lexer);
+static void _lexer_skip_whitespace(struct Lexer* lexer);
+static char _lexer_peek_char(struct Lexer* lexer);
+static char* _lexer_read_string(struct Lexer* lexer);

@@ -7,7 +7,7 @@
 int main(int argc, char *argv[]) {
     char* bufferResult = loadFile("../input.json");
     struct Lexer* lexer = lexerCreate(bufferResult);
-    // struct Parser* parser = newParser(lexer);
+    struct Parser* parser = newParser(lexer);
 
     while(lexer->ch != '\0') {
         struct Token* tok = lexerNextToken(lexer);
