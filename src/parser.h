@@ -11,7 +11,7 @@ struct Parser {
 
 struct JsonObject {
     int num_members; // key?
-    struct JsonMember *members;
+    struct JsonMember* members[];
 };
 
 struct JsonMember {
