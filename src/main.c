@@ -8,5 +8,8 @@ int main(int argc, char *argv[]) {
     char* bufferResult = loadFile("../input.json");
     struct Lexer* lexer = lexerCreate(bufferResult);
     struct Parser* parser = new_parser(lexer);
-    parse_json(parser);
+    struct JsonObject* obj = parse_json(parser);
+    if (obj->members != NULL) {
+        printf("%s\n", obj->members->key);
+    }
 }
