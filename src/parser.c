@@ -47,7 +47,7 @@ struct JsonObject* parse_json(struct Parser *parser) {
         int parse_result = _parse_entry(parser, json_member);
 
         if (temp == NULL) {
-            if (parse_result) {
+            if (parse_result == 1) {
                 json_object->members->next = json_member;
             }
         } else {
@@ -65,7 +65,8 @@ static int _parse_entry(struct Parser *parser, struct JsonMember* json_member) {
         case STRING:
             return _parse_json_string(parser, json_member);
         default:
-            perror("invalid token");
+            return 0;
+            // perror("invalid token");
     }
 
     return 0;
@@ -73,6 +74,16 @@ static int _parse_entry(struct Parser *parser, struct JsonMember* json_member) {
 
 static int _parse_json_string(struct Parser* parser, struct JsonMember* json_member) {
     json_member->key = parser->curr_token->literal;
+
+    if (_expect_peek(parser, COLON) == 0) {
+        perror("Invalid tok expected colon");
+    }
+
+    // TODO: Make this array, number and bool!
+    if (_expect_peek(parser, STRING) == 0) {
+        perror("Invalid tok expected string");
+    }
+
     struct JsonValue* jv = _parse_json_value(parser);
     if (jv != NULL) {
         json_member->value = jv;
@@ -99,7 +110,7 @@ static struct JsonValue* _parse_json_value(struct Parser* parser) {
 }
 
 static int _peek_token_is(struct Parser* parser, TokenType tt) {
-    if (parser->curr_token->type == tt) {
+    if (parser->peek_token->type == tt) {
         return 1;
     } else {
         return 0;
