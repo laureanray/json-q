@@ -9,7 +9,11 @@ int main(int argc, char *argv[]) {
     struct Lexer* lexer = lexerCreate(bufferResult);
     struct Parser* parser = new_parser(lexer);
     struct JsonObject* obj = parse_json(parser);
-    if (obj->members != NULL) {
-        printf("%s\n", obj->members->key);
+
+    struct JsonMember* jm = obj->members;
+    printf("%s\n", jm->key);
+    while(jm->next != NULL) {
+        printf("%s\n", jm->key);
+        jm = jm->next;
     }
 }
