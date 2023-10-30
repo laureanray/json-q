@@ -37,21 +37,29 @@ struct JsonObject* parse_json(struct Parser *parser) {
     }
 
     while (parser->peek_token->type != END_OF_FILE) {
+        struct JsonMember* json_member;
         if (head == NULL) {
             head = malloc(sizeof(struct JsonMember));
             json_object->members = head;
+        } else {
+            json_member = malloc(sizeof(struct JsonMember));
         }
-        struct JsonMember* temp = json_object->members->next;
-        struct JsonMember* json_member = malloc(sizeof(struct JsonMember));
 
-        int parse_result = _parse_entry(parser, json_member);
+        struct JsonMember* head_next = json_object->members->next;
 
-        if (temp == NULL) {
+        int parse_result;
+        if (head->key == NULL) {
+            parse_result = _parse_entry(parser, head);
+        } else {
+            parse_result = _parse_entry(parser, json_member);
+        }
+
+        if (head_next == NULL) {
             if (parse_result == 1) {
-                json_object->members->next = json_member;
+                head_next = json_member;
             }
         } else {
-            temp->next = json_member;
+            head_next->next = json_member;
         }
 
         _next_token(parser);
