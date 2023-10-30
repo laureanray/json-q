@@ -8,8 +8,8 @@ struct Parser* new_parser(struct Lexer *lexer) {
     return p;
 }
 
-static struct JsonMember* _parse_json_string(struct Parser* parser, struct JsonMember* json_member);
-static struct JsonMember* _parse_entry(struct Parser* parser, struct JsonMember* json_member);
+static int _parse_json_string(struct Parser* parser, struct JsonMember* json_member);
+static int _parse_entry(struct Parser* parser, struct JsonMember* json_member);
 static struct JsonValue* _parse_json_value(struct Parser* parse);
 static int _expect_peek(struct Parser* parser, TokenType tt);
 static int _peek_token_is(struct Parser* parser, TokenType tt);
@@ -43,9 +43,13 @@ struct JsonObject* parse_json(struct Parser *parser) {
         }
         struct JsonMember* temp = json_object->members->next;
         struct JsonMember* json_member = malloc(sizeof(struct JsonMember));
-        _parse_entry(parser, json_member);
+
+        int parse_result = _parse_entry(parser, json_member);
+
         if (temp == NULL) {
-            json_object->members->next = json_member;
+            if (parse_result) {
+                json_object->members->next = json_member;
+            }
         } else {
             temp->next = json_member;
         }
@@ -56,7 +60,7 @@ struct JsonObject* parse_json(struct Parser *parser) {
     return json_object;
 }
 
-static struct JsonMember* _parse_entry(struct Parser *parser, struct JsonMember* json_member) {
+static int _parse_entry(struct Parser *parser, struct JsonMember* json_member) {
     switch (parser->curr_token->type) {
         case STRING:
             return _parse_json_string(parser, json_member);
@@ -64,13 +68,17 @@ static struct JsonMember* _parse_entry(struct Parser *parser, struct JsonMember*
             perror("invalid token");
     }
 
-    return NULL;
+    return 0;
 }
 
-static struct JsonMember* _parse_json_string(struct Parser* parser, struct JsonMember* json_member) {
+static int _parse_json_string(struct Parser* parser, struct JsonMember* json_member) {
     json_member->key = parser->curr_token->literal;
-    json_member->value = _parse_json_value(parser);
-    return json_member;
+    struct JsonValue* jv = _parse_json_value(parser);
+    if (jv != NULL) {
+        json_member->value = jv;
+        return 1;
+    }
+    return 0;
 }
 
 static struct JsonValue* _parse_json_value(struct Parser* parser) {
