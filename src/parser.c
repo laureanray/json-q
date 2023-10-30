@@ -56,7 +56,7 @@ struct JsonObject* parse_json(struct Parser *parser) {
 
         if (head_next == NULL) {
             if (parse_result == 1) {
-                head_next = json_member;
+                json_object->members->next = json_member;
             }
         } else {
             head_next->next = json_member;
