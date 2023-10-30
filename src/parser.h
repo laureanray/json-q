@@ -17,6 +17,7 @@ struct JsonObject {
 struct JsonMember {
     char* key;
     struct JsonValue* value;
+    struct JsonMember* next;
 };
 
 struct JsonArray {
