@@ -13,7 +13,10 @@ int main(int argc, char *argv[]) {
     struct JsonMember* jm = obj->members;
     printf("%s\n", jm->key);
     while(jm->next != NULL) {
-        printf("%s\n", jm->key);
         jm = jm->next;
+
+        if (jm->key != NULL) {
+          printf("%s\n", jm->key);
+        }
     }
 }

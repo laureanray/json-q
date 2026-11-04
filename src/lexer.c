@@ -50,7 +50,7 @@ struct Token* lexerNextToken(struct Lexer* lexer) {
             tok = newToken(COMMA, lexer->ch);
             break;
         case '"':
-            tok = newToken(STRING, NULL);
+            tok = newToken(STRING, '\0');
             tok->type = STRING;
             tok->literal = _lexer_read_string(lexer);
             break;
