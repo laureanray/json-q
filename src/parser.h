@@ -30,7 +30,7 @@ typedef enum {
     JSON_NUMBER,
     JSON_BOOLEAN,
     JSON_NULL,
-    JSON_OJBECT,
+    JSON_OBJECT,
     JSON_ARRAY
 } JsonValueType;
 
