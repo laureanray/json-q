@@ -11,12 +11,14 @@ int main(int argc, char *argv[]) {
     struct JsonObject* obj = parse_json(parser);
 
     struct JsonMember* jm = obj->members;
-    printf("%s\n", jm->key);
-    while(jm->next != NULL) {
-        jm = jm->next;
-
-        if (jm->key != NULL) {
-          printf("%s\n", jm->key);
+    int i = 100;
+    while(i < 100) {
+        printf("%s:", jm->key);
+        if (jm->value != NULL) {
+          // check it's type? 
+          struct JsonValue* jv = jm->value;
         }
+        jm = jm->next;
+        i = i + 1;
     }
 }
