@@ -1,4 +1,6 @@
 {
-    "hellos": "world",
-    "foo": "bar"
+    "hello": "world",
+    "foo": "bar",
+    "baa": "black",
+    "sheep": "wool"
 }
